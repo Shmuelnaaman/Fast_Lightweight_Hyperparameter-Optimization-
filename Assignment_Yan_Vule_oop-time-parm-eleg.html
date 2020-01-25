@@ -13238,14 +13238,14 @@ Make a comparison between your algorithm and Bayesian Optimisation  method (<a h
     <span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read the Data file       </span>
-<span class="sd">        Returns:</span>
+<span class="sd">        Returns : </span>
 <span class="sd">        patient : patient dataframe         </span>
 <span class="sd">        &quot;&quot;&quot;</span> 
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">patient</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span> 
                                        <span class="n">index_col</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
             
-            <span class="c1"># Assign a column that indicates the patient ID.</span>
+            <span class="c1"># Assign a column that indicates the patient ID. </span>
             <span class="bp">self</span><span class="o">.</span><span class="n">patient</span><span class="p">[</span><span class="s1">&#39;patient&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;data</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span>
                                           <span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_record_diast.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span> 
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
@@ -13257,7 +13257,7 @@ Make a comparison between your algorithm and Bayesian Optimisation  method (<a h
      
 <span class="k">class</span> <span class="nc">ListAllPatients</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The ParseDataPatient object contains all the patient&#39;s data </span>
+<span class="sd">    The ListAllPatients object contains all the patient&#39;s data </span>
 <span class="sd">    in a single object</span>
 <span class="sd">        </span>
 <span class="sd">    dir_name : The name of the directory that includes the files</span>
@@ -13272,8 +13272,8 @@ Make a comparison between your algorithm and Bayesian Optimisation  method (<a h
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Read all the *.csv files in a single directory</span>
 <span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">        :frame: patients dataframe         </span>
+<span class="sd">        Returns :</span>
+<span class="sd">        frame : patients dataframe         </span>
 <span class="sd">  </span>
 <span class="sd">        &quot;&quot;&quot;</span> 
         <span class="n">li</span> <span class="o">=</span> <span class="p">[]</span>            
@@ -13298,14 +13298,15 @@ Make a comparison between your algorithm and Bayesian Optimisation  method (<a h
 <span class="sd">        Splitting the patient&#39;s data to be used for cross-validation.</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters:</span>
-<span class="sd">        target : name of target variable column.</span>
-<span class="sd">        group_co : name of the column to be used as the groups.</span>
+<span class="sd">        target : name of the target variable column (y).</span>
+<span class="sd">        group_col : name of the ptient ID column that is used for </span>
+<span class="sd">                    the grouping by the  &quot;GroupKFold&quot;                                      </span>
 <span class="sd">        n_splits : number of splits.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
 <span class="sd">        X : dependent variables.</span>
 <span class="sd">        y : target variable.</span>
-<span class="sd">        group_kfold : GroupKFold cross validation object, n_splits</span>
+<span class="sd">        group_kfold : GroupKFold cross validation object</span>
 <span class="sd">        groups : the column that contain the patioent id</span>
 <span class="sd">        &quot;&quot;&quot;</span> 
         <span class="c1"># Independent variables.  </span>
@@ -13340,12 +13341,16 @@ Make a comparison between your algorithm and Bayesian Optimisation  method (<a h
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;data&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># data folder name</span>
+<span class="n">path</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;data&#39;</span>
 
+<span class="c1"># List of the files in the folder</span>
 <span class="n">all_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/*.csv&quot;</span><span class="p">)</span>
- 
+
+<span class="c1"># Reading the Data</span>
 <span class="n">pf</span> <span class="o">=</span> <span class="n">ListAllPatients</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
+<span class="c1"># Spliting the data</span>
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">group_kfold</span><span class="p">,</span> <span class="n">groups</span> <span class="o">=</span> <span class="n">pf</span><span class="o">.</span><span class="n">split_data</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;patient&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -13403,7 +13408,7 @@ data\9_record_diast.csv
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="A-function-that-training-the-model-and-reporting-the-performance">A function that training the model and reporting the performance<a class="anchor-link" href="#A-function-that-training-the-model-and-reporting-the-performance">&#182;</a></h3>
+<h3 id="A-function-that-trains-the-model-and-reports-the-performance">A function that trains the model and reports the performance<a class="anchor-link" href="#A-function-that-trains-the-model-and-reports-the-performance">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13416,14 +13421,14 @@ data\9_record_diast.csv
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Training the model and calculating the performance.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters:</span>
-<span class="sd">    params: The model hyperparameters.</span>
+<span class="sd">    Parameters :</span>
+<span class="sd">    params : The model hyperparameters.</span>
 <span class="sd">    X : independent variables.</span>
 <span class="sd">    y : target variable. </span>
 <span class="sd">    s : sample size.     </span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">    cm_l : list of model performance. </span>
+<span class="sd">    cm_l : list of model performance obtained by the cross validation.  </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cm_l</span> <span class="o">=</span> <span class="p">[]</span>
     
@@ -13451,7 +13456,7 @@ data\9_record_diast.csv
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="A-function-that-changes-the-Model-Hyperparameters">A function that changes the Model Hyperparameters<a class="anchor-link" href="#A-function-that-changes-the-Model-Hyperparameters">&#182;</a></h3>
+<h3 id="A-function-that-iterates-between-different-Model-Hyperparameters">A function that iterates between different Model Hyperparameters<a class="anchor-link" href="#A-function-that-iterates-between-different-Model-Hyperparameters">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13463,13 +13468,14 @@ data\9_record_diast.csv
 <div class=" highlight hl-ipython3"><pre><span></span> 
 <span class="k">def</span> <span class="nf">prop_dir</span> <span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">Sn</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Propose two variations (positive, negative) for the </span>
-<span class="sd">    complexity-related hyperparameters.</span>
+<span class="sd">    Propose two hyperparameters variations</span>
+<span class="sd">    For complexity-related hyperparameters one increase while the other decrease complexity </span>
+<span class="sd">    For complexity-not-related hyperparameters we change the value randomly.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters:</span>
 <span class="sd">    B : The geometric base defines the scale of the change. </span>
-<span class="sd">    p : 0 for complexity-related hyperparameters, </span>
-<span class="sd">        complexity-not-related hyperparameters. </span>
+<span class="sd">    p : 0 - for complexity-related hyperparameters. </span>
+<span class="sd">        1 - forcomplexity-not-related hyperparameters. </span>
 <span class="sd">    S : Complexity-related hyperparameters Space.</span>
 <span class="sd">    Sn : Complexity-not-related hyperparameters Space.</span>
 <span class="sd">    c : Base hyperparameters Space.</span>
@@ -13480,7 +13486,8 @@ data\9_record_diast.csv
     <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  
         <span class="c1"># Create a random unit vector to use for the direction search</span>
         <span class="n">u</span> <span class="o">=</span> <span class="n">unit_norm</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> 
-        <span class="c1"># We and ﬁx complexity-not-related hyperparameters.</span>
+        
+        <span class="c1"># We set the complexity-not-related hyperparameters.</span>
         <span class="n">cpp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">cpn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         
@@ -13501,7 +13508,7 @@ data\9_record_diast.csv
                 <span class="n">cpn</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">cpn</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">k</span><span class="p">]))</span>
                 <span class="n">cpp</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">cpp</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">k</span><span class="p">]))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># We and ﬁx complexity-related hyperparameters.</span>
+        <span class="c1"># We set the complexity-related hyperparameters.</span>
         <span class="n">cpp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">cpn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         
@@ -13628,19 +13635,6 @@ data\9_record_diast.csv
 <h3 id="Parameter-settings">Parameter settings<a class="anchor-link" href="#Parameter-settings">&#182;</a></h3>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#S, Sn,c, cpp,cpn,x0, y0, params, dim, s, s0,p0, U,p, n, Et, E , B0, B</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -13783,17 +13777,20 @@ data\9_record_diast.csv
                 <span class="c1"># Update the base model.</span>
                 <span class="n">c</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cpn</span><span class="p">[</span><span class="n">p</span><span class="p">])</span> 
             
-            <span class="sd">&quot;&quot;&quot;When performance does not improves on the </span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            When performance does not improves on the </span>
 <span class="sd">            negative or positive direction.&quot;&quot;&quot;</span>  
             <span class="k">else</span><span class="p">:</span>
                 
-                <span class="sd">&quot;&quot;&quot;Switch between complexity-related and </span>
+                <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Switch between complexity-related and </span>
 <span class="sd">                complexity-not-related hyperparameters.&quot;&quot;&quot;</span>
+                
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No Improvment for C-&#39;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;update p =&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
                 
-                <span class="c1"># If no hyperparameters, switch back. </span>
+                <span class="c1"># If no complexity-not-related hyperparameters, switch back. </span>
                 <span class="k">if</span> <span class="n">dim</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>                     
                     <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;update p =&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
@@ -13802,14 +13799,15 @@ data\9_record_diast.csv
                     
                     <span class="c1"># When no performance improves, update the counter.</span>
                     <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>     
-                    
-                    <span class="c1"># Report model performance. </span>
+                     
                     <span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;update n =&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>                      
                     
                     <span class="c1"># If the counter reaches the threshold.</span>
                     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="n">U</span><span class="p">:</span>
-                        <span class="sd">&quot;&quot;&quot;Tries to decrease the geometric base B because </span>
+                        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                        Tries to decrease the geometric base B because </span>
 <span class="sd">                        model may be close to a local optimum.&quot;&quot;&quot;</span> 
+                        
                         <span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;Model might be close to a local optimum&#39;</span><span class="p">)</span>
                         
                         <span class="c1"># Reset the search.</span>
@@ -13817,14 +13815,18 @@ data\9_record_diast.csv
                         <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
                         <span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;update B=&#39;</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
                         
-                        <span class="sd">&quot;&quot;&quot;When B is so small that the expected change in all </span>
+                        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                        When B is so small that the expected change in all </span>
 <span class="sd">                        dimensions in one iteration is smaller than 1.&quot;&quot;&quot;</span> 
+                        
                         <span class="k">if</span> <span class="n">B</span> <span class="o">&lt;=</span> <span class="nb">min</span><span class="p">([(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">k</span><span class="p">])</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  
                                      <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">S</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span> <span class="p">):</span>  
                              
-                            <span class="sd">&quot;&quot;&quot;When search is reset, we would like to move </span>
+                            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                            When search is reset, we would like to move </span>
 <span class="sd">                            quickly to unexplored space, increase geometric </span>
 <span class="sd">                            base B.&quot;&quot;&quot;</span>
+                            
                             <span class="n">B0</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span> <span class="n">B0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="p">([(</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> 
                                                   <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">S</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span> <span class="p">))</span>
                             <span class="n">B</span> <span class="o">=</span> <span class="n">B0</span> <span class="c1">#  </span>
